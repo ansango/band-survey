@@ -10,7 +10,7 @@ class Server {
     this.port = process.env.PORT;
     this.server = http.createServer(this.app);
     this.io = socketIo(this.server, {
-      /**settings */
+      cors: { origins: ["*"] },
     });
   }
 

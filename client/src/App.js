@@ -1,4 +1,5 @@
 import { BandAdd } from "./components/BandAdd";
+import BandChart from "./components/BandChart";
 import { BandList } from "./components/BandList";
 import { useSocketIO } from "./state/socket/SocketProvider";
 
@@ -19,6 +20,11 @@ const App = () => {
       </div>
       <h1>Band Survey</h1>
       <hr />
+      <div className="row">
+        <div className="col">
+          <BandChart />
+        </div>
+      </div>
       <div className="row">
         <div className="col-8">
           <BandList />

@@ -1,9 +1,18 @@
 import { useEffect, useState } from "react";
+import { useSocketIO } from "../state/socket/SocketProvider";
 
-export const BandList = ({ data = [], voting, remove, changeName }) => {
-  const [bands, setBands] = useState(data);
+export const BandList = () => {
+  const { socket } = useSocketIO();
+  const [bands, setBands] = useState([]);
 
-  useEffect(() => setBands(data), [data]);
+  useEffect(() => {
+    socket.on("currentBands", (res) => setBands(res));
+    return () => socket.off("currentBands");
+  }, [socket]);
+
+  const voting = (id) => socket.emit("votingBand", { id });
+  const remove = (id) => socket.emit("removeBand", { id });
+  const handleBlur = (id, name) => socket.emit("changeBandName", { id, name });
 
   const handleName = (event, id) => {
     const newName = event.target.value;
@@ -15,10 +24,6 @@ export const BandList = ({ data = [], voting, remove, changeName }) => {
         return band;
       })
     );
-  };
-
-  const handleBlur = (id, name) => {
-    changeName(id, name);
   };
 
   const CreateRows = () => {

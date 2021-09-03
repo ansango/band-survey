@@ -1,27 +1,9 @@
-import { useEffect, useState } from "react";
 import { BandAdd } from "./components/BandAdd";
 import { BandList } from "./components/BandList";
-import { useSocket } from "./state/socket/SocketProvider";
+import { useSocketIO } from "./state/socket/SocketProvider";
 
 const App = () => {
-  const [bands, setBands] = useState([]);
-  const { online, socket } = useSocket();
-  useEffect(() => socket.on("currentBands", (res) => setBands(res)), [socket]);
-  const voting = (id) => {
-    socket.emit("votingBand", { id });
-  };
-
-  const remove = (id) => {
-    socket.emit("removeBand", { id });
-  };
-
-  const changeName = (id, name) => {
-    socket.emit("changeBandName", { id, name });
-  };
-
-  const createBand = (name) => {
-    socket.emit("addBand", { name });
-  };
+  const { online } = useSocketIO();
 
   return (
     <div className="container">
@@ -39,15 +21,10 @@ const App = () => {
       <hr />
       <div className="row">
         <div className="col-8">
-          <BandList
-            data={bands}
-            voting={voting}
-            remove={remove}
-            changeName={changeName}
-          />
+          <BandList />
         </div>
         <div className="col-4">
-          <BandAdd createBand={createBand} />
+          <BandAdd />
         </div>
       </div>
     </div>

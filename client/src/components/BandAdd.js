@@ -1,15 +1,19 @@
 import { useState } from "react";
+import { useSocketIO } from "../state/socket/SocketProvider";
 
-export const BandAdd = ({ createBand }) => {
+export const BandAdd = () => {
+  
+  const { socket } = useSocketIO();
   const [value, setValue] = useState("");
+
   const handleSubmit = (event) => {
     event.preventDefault();
-
     if (value.trim().length > 0) {
-      createBand(value);
+      socket.emit("addBand", { name: value });
       setValue("");
     }
   };
+
   return (
     <>
       <h3>Add a band</h3>

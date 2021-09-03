@@ -1,22 +1,10 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import io from "socket.io-client";
+import { createContext, useContext } from "react";
+import useSocket from "../../hooks/useSocket";
 
-const options = { transports: ["websocket"] };
 const SocketContext = createContext();
 
-const SocketProvider = ({ children, serverPath }) => {
-  //* Para evitar cambios si el serverPath no cambio utilizamos useMemo
-  const socket = useMemo(() => io.connect(serverPath, options), [serverPath]);
-  const [online, setOnline] = useState(false);
-
-  // * abrimos la conexión
-  useEffect(() => setOnline(socket.connected), [socket]);
-
-  // * nos conectamos
-  useEffect(() => socket.on("connect", () => setOnline(true)), [socket]);
-
-  // * nos desconectamos
-  useEffect(() => socket.on("disconnect", () => setOnline(false)), [socket]);
+const SocketProvider = ({ children }) => {
+  const { socket, online } = useSocket("http://localhost:8080");
   return (
     <SocketContext.Provider value={{ socket, online }}>
       {children}
@@ -24,6 +12,7 @@ const SocketProvider = ({ children, serverPath }) => {
   );
 };
 
-const useSocket = () => useContext(SocketContext);
+const useSocketIO = () => useContext(SocketContext);
 
-export { SocketProvider, useSocket };
+export { SocketProvider, useSocketIO };
+

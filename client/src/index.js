@@ -6,7 +6,7 @@ import { SocketProvider } from "./state/socket/SocketProvider";
 
 ReactDOM.render(
   <React.StrictMode>
-    <SocketProvider serverPath="http://localhost:8080">
+    <SocketProvider>
       <App />
     </SocketProvider>
   </React.StrictMode>,

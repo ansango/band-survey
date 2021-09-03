@@ -22,6 +22,10 @@ const App = () => {
     socket.emit("removeBand", { id });
   };
 
+  const changeName = (id, name) => {
+    socket.emit("changeBandName", { id, name });
+  };
+
   return (
     <div className="container">
       <div className="alert">
@@ -38,7 +42,12 @@ const App = () => {
       <hr />
       <div className="row">
         <div className="col-8">
-          <BandList data={bands} voting={voting} remove={remove} />
+          <BandList
+            data={bands}
+            voting={voting}
+            remove={remove}
+            changeName={changeName}
+          />
         </div>
         <div className="col-4">
           <BandAdd />

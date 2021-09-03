@@ -9,11 +9,10 @@ class Sockets {
 
   socketEvents() {
     this.io.on("connection", (socket) => {
-      console.log("client connected");
-
-      // emit to client all bands
+      console.log(`Client @${socket.id} - connected`);
 
       socket.emit("currentBands", this.bandList.getBands());
+
       socket.on("votingBand", ({ id }) => {
         this.bandList.increaseVotes(id);
         this.io.emit("currentBands", this.bandList.getBands());
@@ -21,6 +20,11 @@ class Sockets {
 
       socket.on("removeBand", ({ id }) => {
         this.bandList.removeRand(id);
+        this.io.emit("currentBands", this.bandList.getBands());
+      });
+
+      socket.on("changeBandName", ({ id, name }) => {
+        this.bandList.changeBandName(id, name);
         this.io.emit("currentBands", this.bandList.getBands());
       });
     });

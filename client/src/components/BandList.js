@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const BandList = ({ data = [], voting, remove }) => {
+export const BandList = ({ data = [], voting, remove, changeName }) => {
   const [bands, setBands] = useState(data);
 
   useEffect(() => setBands(data), [data]);
@@ -17,7 +17,9 @@ export const BandList = ({ data = [], voting, remove }) => {
     );
   };
 
-  const handleBlur = (id, name) => {};
+  const handleBlur = (id, name) => {
+    changeName(id, name);
+  };
 
   const CreateRows = () => {
     return (

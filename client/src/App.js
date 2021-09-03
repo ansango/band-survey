@@ -8,11 +8,11 @@ const connectSocketServer = () => io.connect("http://localhost:8080");
 const App = () => {
   const [socket] = useState(connectSocketServer());
   const [online, setOnline] = useState(false);
-
+  const [bands, setBands] = useState([]);
   useEffect(() => setOnline(socket.connected), [socket]);
-
   useEffect(() => socket.on("connect", () => setOnline(true)), [socket]);
   useEffect(() => socket.on("disconnect", () => setOnline(false)), [socket]);
+  useEffect(() => socket.on("currentBands", (bands) => setBands(bands)), []);
 
   return (
     <div className="container">
@@ -30,7 +30,7 @@ const App = () => {
       <hr />
       <div className="row">
         <div className="col-8">
-          <BandList />
+          <BandList data={bands} />
         </div>
         <div className="col-4">
           <BandAdd />

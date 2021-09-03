@@ -1,0 +1,22 @@
+{
+  "name": "socket-basic",
+  "version": "1.0.0",
+  "description": "socket io basic",
+  "main": "index.js",
+  "author": "Anibal Santos",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "socket.io": "^4.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}

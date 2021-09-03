@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { BandAdd } from "./components/BandAdd";
 import { BandList } from "./components/BandList";
-import useSocket from "./hooks/useSocket";
+import { useSocket } from "./state/socket/SocketProvider";
 
 const App = () => {
   const [bands, setBands] = useState([]);
-  const { socket, online } = useSocket("http://localhost:8080");
+  const { online, socket } = useSocket();
   useEffect(() => socket.on("currentBands", (res) => setBands(res)), [socket]);
   const voting = (id) => {
     socket.emit("votingBand", { id });

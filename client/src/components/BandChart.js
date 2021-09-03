@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Chart, registerables } from "chart.js";
 import { useSocketIO } from "../state/socket/SocketProvider";
+import { Box } from "@chakra-ui/react";
 Chart.register(...registerables);
 
 export const BandChart = () => {
@@ -50,7 +51,11 @@ export const BandChart = () => {
     };
   }, [bands]);
 
-  return <canvas id="myChart"></canvas>;
+    return (
+      <Box px="5" py="16">
+        <canvas id="myChart"></canvas>
+      </Box>
+    );
 };
 
 export default BandChart;

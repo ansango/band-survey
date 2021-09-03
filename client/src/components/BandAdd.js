@@ -1,8 +1,8 @@
+import { Input, FormControl, FormLabel, Button } from "@chakra-ui/react";
 import { useState } from "react";
 import { useSocketIO } from "../state/socket/SocketProvider";
 
 export const BandAdd = () => {
-  
   const { socket } = useSocketIO();
   const [value, setValue] = useState("");
 
@@ -16,14 +16,18 @@ export const BandAdd = () => {
 
   return (
     <>
-      <h3>Add a band</h3>
       <form onSubmit={handleSubmit}>
-        <input
-          className="form-control"
-          placeholder="New band name"
-          value={value}
-          onChange={(event) => setValue(event.target.value)}
-        />
+        <FormControl>
+          <FormLabel>Add a new band</FormLabel>
+          <Input
+            placeholder="New band name"
+            value={value}
+            onChange={(event) => setValue(event.target.value)}
+          />
+        </FormControl>
+        <Button mt={4} colorScheme="teal" type="submit">
+          Submit
+        </Button>
       </form>
     </>
   );

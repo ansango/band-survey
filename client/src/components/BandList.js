@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSocketIO } from "../state/socket/SocketProvider";
+import { Button, Input, Flex, Box, Grid } from "@chakra-ui/react";
 
 export const BandList = () => {
   const { socket } = useSocketIO();
@@ -26,56 +27,40 @@ export const BandList = () => {
     );
   };
 
-  const CreateRows = () => {
-    return (
-      <>
+  return (
+    <Box px="5">
+      <Grid
+        templateColumns={{
+          base: "repeat(1, 1fr)",
+          md: "repeat(2, 1fr)",
+          lg: "repeat(3, 1fr)",
+          xl: "repeat(4, 1fr)",
+        }}
+        gap={1}
+      >
         {bands.map((band) => (
-          <tr key={band.id}>
-            <td>
-              <button
-                className="btn btn-primary"
-                onClick={() => voting(band.id)}
-              >
-                +1
-              </button>
-            </td>
-            <td>
-              <input
-                className="form-control"
+          <Flex py="2" align="center" justify="center">
+            <Box px="5">
+              <Input
+                variant="filled"
                 value={band.name}
                 onChange={(event) => handleName(event, band.id)}
                 onBlur={() => handleBlur(band.id, band.name)}
               />
-            </td>
-            <td>
-              <h3>{band.votes}</h3>
-            </td>
-            <td>
-              <button
-                className="btn btn-danger"
-                onClick={() => remove(band.id)}
-              >
-                Remove
-              </button>
-            </td>
-          </tr>
+            </Box>
+            <Box pr="1">
+              <Button colorScheme="blue" onClick={() => voting(band.id)}>
+                +1
+              </Button>
+            </Box>
+            {/* <Box pl="1">
+            <Button colorScheme="red" onClick={() => remove(band.id)}>
+              <DeleteIcon />
+            </Button>
+          </Box> */}
+          </Flex>
         ))}
-      </>
-    );
-  };
-  return (
-    <>
-      <table className="table table-stripped">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Votes</th>
-            <th>Remove</th>
-          </tr>
-        </thead>
-        <tbody>{CreateRows()}</tbody>
-      </table>
-    </>
+      </Grid>
+    </Box>
   );
 };

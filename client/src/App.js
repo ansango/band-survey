@@ -1,39 +1,25 @@
 import { BandAdd } from "./components/BandAdd";
 import BandChart from "./components/BandChart";
 import { BandList } from "./components/BandList";
-import { useSocketIO } from "./state/socket/SocketProvider";
+import { Container } from "@chakra-ui/react";
+import NavBar from "./components/ui/NavBar";
+import Footer from "./components/ui/Footer";
+import { Main } from "./components/ui/Main";
 
 const App = () => {
-  const { online } = useSocketIO();
-
   return (
-    <div className="container">
-      <div className="alert">
-        <p>
-          Service status{" "}
-          {online ? (
-            <span className="text-success">Online</span>
-          ) : (
-            <span className="text-danger">Offline</span>
-          )}
-        </p>
-      </div>
-      <h1>Band Survey</h1>
-      <hr />
-      <div className="row">
-        <div className="col">
-          <BandChart />
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-8">
-          <BandList />
-        </div>
-        <div className="col-4">
-          <BandAdd />
-        </div>
-      </div>
-    </div>
+    <Container
+      maxW="container.xl"
+      style={{ display: "flex", flexDirection: "column", height: "100vh" }}
+    >
+      <NavBar />
+      <Main>
+        <BandChart />
+        <BandList />
+        {/* <BandAdd /> */}
+      </Main>
+      <Footer />
+    </Container>
   );
 };
 

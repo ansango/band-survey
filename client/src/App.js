@@ -15,8 +15,11 @@ const App = () => {
   useEffect(() => socket.on("currentBands", (res) => setBands(res)), [socket]);
 
   const voting = (id) => {
-    console.log(id);
     socket.emit("votingBand", { id });
+  };
+
+  const remove = (id) => {
+    socket.emit("removeBand", { id });
   };
 
   return (
@@ -35,7 +38,7 @@ const App = () => {
       <hr />
       <div className="row">
         <div className="col-8">
-          <BandList data={bands} voting={voting} />
+          <BandList data={bands} voting={voting} remove={remove} />
         </div>
         <div className="col-4">
           <BandAdd />

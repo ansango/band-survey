@@ -18,6 +18,11 @@ class Sockets {
         this.bandList.increaseVotes(id);
         this.io.emit("currentBands", this.bandList.getBands());
       });
+
+      socket.on("removeBand", ({ id }) => {
+        this.bandList.removeRand(id);
+        this.io.emit("currentBands", this.bandList.getBands());
+      });
     });
   }
 }

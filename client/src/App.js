@@ -12,7 +12,7 @@ const App = () => {
   useEffect(() => setOnline(socket.connected), [socket]);
   useEffect(() => socket.on("connect", () => setOnline(true)), [socket]);
   useEffect(() => socket.on("disconnect", () => setOnline(false)), [socket]);
-  useEffect(() => socket.on("currentBands", (bands) => setBands(bands)), []);
+  useEffect(() => socket.on("currentBands", (bands) => setBands(bands)), [socket]);
 
   return (
     <div className="container">

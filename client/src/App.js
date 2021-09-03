@@ -12,7 +12,12 @@ const App = () => {
   useEffect(() => setOnline(socket.connected), [socket]);
   useEffect(() => socket.on("connect", () => setOnline(true)), [socket]);
   useEffect(() => socket.on("disconnect", () => setOnline(false)), [socket]);
-  useEffect(() => socket.on("currentBands", (bands) => setBands(bands)), [socket]);
+  useEffect(() => socket.on("currentBands", (res) => setBands(res)), [socket]);
+
+  const voting = (id) => {
+    console.log(id);
+    socket.emit("votingBand", { id });
+  };
 
   return (
     <div className="container">
@@ -30,7 +35,7 @@ const App = () => {
       <hr />
       <div className="row">
         <div className="col-8">
-          <BandList data={bands} />
+          <BandList data={bands} voting={voting} />
         </div>
         <div className="col-4">
           <BandAdd />

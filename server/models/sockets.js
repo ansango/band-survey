@@ -14,6 +14,10 @@ class Sockets {
       // emit to client all bands
 
       socket.emit("currentBands", this.bandList.getBands());
+      socket.on("votingBand", ({ id }) => {
+        this.bandList.increaseVotes(id);
+        this.io.emit("currentBands", this.bandList.getBands());
+      });
     });
   }
 }

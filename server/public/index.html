@@ -13,29 +13,8 @@
     />
   </head>
   <body class="container">
-    <h1 class="mt-5">Socket Basic Chat</h1>
+    <h1 class="mt-5">Band Survey</h1>
     <hr />
-    <form id="form-socket">
-      <div class="row">
-        <div class="col-11">
-          <input
-            type="text"
-            id="msg"
-            placeholder="Message"
-            class="form-control"
-          />
-        </div>
-        <div class="col-1">
-          <button type="submit" class="btn btn-primary">Send</button>
-        </div>
-      </div>
-    </form>
-
-    <div class="row mt-3">
-      <div class="col">
-        <ul id="messages"></ul>
-      </div>
-    </div>
 
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"
@@ -45,19 +24,9 @@
     ></script>
     <script>
       const socket = io("http://localhost:8080/");
-      const form = document.querySelector("#form-socket");
-      const messages = document.querySelector("#messages");
-      const message = document.querySelector("#msg");
-      form.addEventListener("submit", (event) => {
-        event.preventDefault();
-        const newMessage = message.value;
-        const date = new Intl.DateTimeFormat("es-ES").format(new Date());
-        socket.emit("messageToServer", { newMessage, date });
-      });
 
-      socket.on("messageFromServer", (res) => {
-        const { newMessage } = res;
-        messages.innerHTML += `<li>${newMessage}</li>`;
+      socket.on("currentBands", (res) => {
+        console.log(res);
       });
     </script>
   </body>
